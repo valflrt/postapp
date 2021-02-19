@@ -3,6 +3,7 @@ const router = require('express').Router();
 // local modules
 
 const User = require("../models/user");
+const encryption = require("../utils/encryption");
 
 // show all users
 
@@ -43,7 +44,11 @@ router.get("/getonebyid/:id", async (req, res) => {
 // add a new user to the database
 
 router.get("/createone", async (req, res) => {
-	new User({ username: req.query.username, password: encryption.encrypt(req.query.password), bio: req.query.bio }).save()
+	new User({
+		username: req.query.username,
+		password: encryption.hash(req.query.password),
+		bio: req.query.bio
+	}).save()
 		.then(user => res.status(200).json({
 			message: "user added successfully",
 			user
