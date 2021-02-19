@@ -4,16 +4,19 @@ const { Schema } = mongoose;
 module.exports = mongoose.model("Post", new Schema({
 	description: {
 		type: String,
-		default: null
+		default: null,
+		required: true
 	},
 	author: {
 		_id: {
 			type: String,
-			default: "unknown"
+			default: "unknown",
+			required: true
 		},
 		username: {
 			type: String,
-			default: "unknown"
+			default: "unknown",
+			required: true
 		}
 	},
 	image: {

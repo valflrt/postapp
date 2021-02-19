@@ -33,6 +33,7 @@ router.get("/createone", async (req, res) => {
 		//let imageFromDB = await Image.findByID(imageId);
 
 		let post = await new Post({ description: description, author: authorFromDB/*, image: imageFromDB*/ }).save();
+		authorFromDB.posts.push(post._id);
 		res.status(200).json({ message: "added successfully", post });
 	} catch (err) {
 		console.log(err);

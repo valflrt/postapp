@@ -1,7 +1,7 @@
 import { Component } from "react";
 
-import Post from "./fragments/Post"
-import Loader from "./fragments/Loader";
+import Post from "../fragments/Post"
+import Loader from "../fragments/Loader";
 //import Button from "./Button";
 
 class Home extends Component {
