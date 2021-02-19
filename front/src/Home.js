@@ -1,7 +1,7 @@
 import { Component } from "react";
 
-import Post from "./Post"
-import Loader from "./Loader";
+import Post from "./fragments/Post"
+import Loader from "./fragments/Loader";
 //import Button from "./Button";
 
 class Home extends Component {
@@ -48,11 +48,11 @@ class Home extends Component {
 
 		return new Promise((resolve, reject) => {
 
-			fetch("http://127.0.0.1:8080/posts/get")
+			fetch("http://127.0.0.1:8080/posts/getall")
 				.then(res => res.json())
 				.then(res => resolve(res))
 				.catch(err => reject(err));
-			fetch("http://192.168.1.107:8080/posts/get")
+			fetch("http://192.168.1.107:8080/posts/getall")
 				.then(res => res.json())
 				.then(res => resolve(res))
 				.catch(err => reject(err));

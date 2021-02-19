@@ -6,7 +6,7 @@ const User = require("../models/user");
 
 // show all users
 
-router.get("/get", async (req, res) => {
+router.get("/getall", async (req, res) => {
 	try {
 		User.find((err, users) => {
 			res.status(200).json(users.map(user => {
@@ -25,7 +25,7 @@ router.get("/get", async (req, res) => {
 
 // show one user by id
 
-router.get("/get/:id", async (req, res) => {
+router.get("/getonebyid/:id", async (req, res) => {
 	try {
 		User.findById(req.params.id, (err, user) => {
 			res.status(200).json({
@@ -42,7 +42,7 @@ router.get("/get/:id", async (req, res) => {
 
 // add a new user to the database
 
-router.post("/post", async (req, res) => {
+router.get("/createone", async (req, res) => {
 	new User({ username: req.query.username, password: encryption.encrypt(req.query.password), bio: req.query.bio }).save()
 		.then(user => res.status(200).json({
 			message: "user added successfully",
@@ -53,7 +53,7 @@ router.post("/post", async (req, res) => {
 
 // update an user
 
-router.put("/put/:id", async (req, res) => {
+router.get("/updateonebyid/:id", async (req, res) => {
 	try {
 
 		let { username, password, bio } = req.query;
@@ -73,7 +73,7 @@ router.put("/put/:id", async (req, res) => {
 
 // delete an user
 
-router.delete("/delete/:id", async (req, res) => {
+router.get("/deleteonebyid/:id", async (req, res) => {
 	try {
 		await User.findByIdAndDelete({ _id: req.params.id });
 		res.status(200).json({ message: "deleted successfully" });

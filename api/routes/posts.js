@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 // get all posts
 
-router.get("/get", async (req, res) => {
+router.get("/getall", async (req, res) => {
 	try {
 		res.status(200).json(await Post.find());
 	} catch (err) {
@@ -15,7 +15,7 @@ router.get("/get", async (req, res) => {
 
 // get information about one post by id
 
-router.get("/get/:id", async (req, res) => {
+router.get("/getonebyid/:id", async (req, res) => {
 	try {
 		res.status(200).json(await Post.findById(req.params.id));
 	} catch (err) {
@@ -25,7 +25,7 @@ router.get("/get/:id", async (req, res) => {
 
 // create a post
 
-router.post("/post", async (req, res) => {
+router.get("/createone", async (req, res) => {
 	try {
 		let { description, authorId, imageId } = req.query;
 
@@ -42,7 +42,7 @@ router.post("/post", async (req, res) => {
 
 // update a post
 
-router.put("/put/:id", async (req, res) => {
+router.get("/updateonebyid/:id", async (req, res) => {
 	try {
 
 		let { description } = req.query;
@@ -61,7 +61,7 @@ router.put("/put/:id", async (req, res) => {
 
 // delete a post
 
-router.delete("/delete/:id", async (req, res) => {
+router.get("/deleteonebyid/:id", async (req, res) => {
 	try {
 		await Post.findByIdAndDelete({ _id: req.params.id });
 		res.status(200).json({ message: "deleted successfully" });

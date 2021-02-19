@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import Home from "./Home";
-import Button from "./Button";
+import Button from "./fragments/Button";
 
 class App extends Component {
 	constructor(props) {
