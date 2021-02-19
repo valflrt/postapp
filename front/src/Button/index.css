@@ -1,0 +1,17 @@
+.button {
+	min-height: 35px;
+	min-width: 100px;
+	padding: 8px;
+	margin: 4px;
+	display: inline-flex;
+	border-radius: 4px;
+	background: var(--black-tint2);
+	cursor: pointer;
+	user-select: none;
+}
+
+.button > p {
+	font-size: 1em;
+	margin: auto;
+	text-decoration: none;
+}
