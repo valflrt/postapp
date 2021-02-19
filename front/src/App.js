@@ -39,8 +39,11 @@ class App extends Component {
 					<div className="main">
 						<Switch>
 							<Route path={"/"} exact component={Home} />
+							<Route path={"/post/:id"} render={() => <div>post</div>} />
+							<Route path={"/user/:id"} render={() => <div>user</div>} />
 							<Route path={"/create"} render={() => <div>hey</div>} />
 							<Route path={"/login"} render={() => <div>login</div>} />
+
 							<Route render={() => <p>404: page not found</p>} />
 						</Switch>
 					</div >
