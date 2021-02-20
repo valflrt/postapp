@@ -1,12 +1,14 @@
 import "./index.css";
 import { Component } from "react";
+
 import { Link } from "react-router-dom";
+import { Image } from "../Image";
 
 class Post extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isImageFocused: false
+			galleryMode: false
 		};
 	};
 
@@ -17,7 +19,7 @@ class Post extends Component {
 		return (
 			<div className="post">
 				{props.hasImage === true ? (
-					<img className="image" onClick={() => this.setState({ isImageFocused: true })} src={`/posts/${props._id}.png`} alt={props._id} />
+					<Image action={() => this.setState({ galleryMode: true })} src={`/posts/${props._id}.png`} alt={props._id} />
 				) : null}
 				<div className="wrapper">
 					<div className="main-text">
@@ -29,8 +31,8 @@ class Post extends Component {
 						</Link>
 					</div>
 				</div>
-				{(this.state.isImageFocused === true) && (
-					<div className="imageContainer" onClick={() => this.setState({ isImageFocused: false })}>
+				{(this.state.galleryMode === true) && (
+					<div className="imageContainer" onClick={() => this.setState({ galleryMode: false })}>
 						<img className="image" src={`/posts/${props._id}.png`} alt={props._id} />
 					</div>
 				)}

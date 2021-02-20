@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./index.css";
 
 import Home from "../Home";
+import User from "../User";
 import Button from "../fragments/Button";
 
 const App = () => (
@@ -30,7 +31,7 @@ const App = () => (
 					<Route path={"/"} exact component={Home} />
 
 					<Route path={"/post/:id"} render={() => <div>post</div>} />
-					<Route path={"/user/:id"} render={() => <div>user</div>} />
+					<Route path={"/user/:id"} component={User} />
 
 					<Route path={"/create"} render={() => <div>hey</div>} />
 					<Route path={"/login"} render={() => <div>login</div>} />

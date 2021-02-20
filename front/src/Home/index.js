@@ -2,6 +2,7 @@ import { Component } from "react";
 
 import Post from "../fragments/Post"
 import Loader from "../fragments/Loader";
+//import { Link } from "react-router-dom";
 //import Button from "./Button";
 
 class Home extends Component {
@@ -26,21 +27,16 @@ class Home extends Component {
 	};
 
 	render() {
-
-		const postsRendering = () => {
-			if (this.state.loadState.loaded === false) {
-				return (this.state.loadState.error === false) ? <Loader /> : <Loader error />;
-			} else {
-				return this.state.posts?.map(post => (<Post props={post} key={post._id} />));
-			};
-		};
-
 		return (
 			<>
-				{/* <Button id="reloadButton" value="reload" onClick={() => this.reload()} /> */}
-				{postsRendering()}
+				{
+					this.state.loadState.loaded === false ?
+						(this.state.loadState.error === false ? <Loader /> : <Loader error />)
+						: this.state.posts?.map(post => (
+							<Post props={post} key={post._id} />
+						))
+				}
 			</>
-
 		);
 	};
 

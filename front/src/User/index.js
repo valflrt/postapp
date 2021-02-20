@@ -1,8 +1,6 @@
 import { Component } from "react";
 
-import Post from "../fragments/Post"
 import Loader from "../fragments/Loader";
-//import Button from "./Button";
 
 class Home extends Component {
 	constructor(props) {
@@ -18,7 +16,7 @@ class Home extends Component {
 
 	componentDidMount() {
 		this.load()
-			.then((res) => this.setState({ posts: res, loadState: { loaded: true } }))
+			.then((res) => this.setState({ user: res, loadState: { loaded: true } }))
 			.catch((err) => {
 				this.setState({ posts: null, loadState: { loaded: false, error: true } });
 				console.log(err);
@@ -27,20 +25,19 @@ class Home extends Component {
 
 	render() {
 
-		const postsRendering = () => {
-			if (this.state.loadState.loaded === false) {
-				return (this.state.loadState.error === false) ? <Loader /> : <Loader error />;
-			} else {
-				return this.state.posts?.map(post => (<Post props={post} key={post._id} />));
-			};
-		};
-
 		return (
 			<>
-				{/* <Button id="reloadButton" value="reload" onClick={() => this.reload()} /> */}
-				{postsRendering()}
+				{
+					this.state.loadState.loaded === false ?
+						(this.state.loadState.error === false ? <Loader /> : <Loader error />)
+						: (
+							<>
+								<p>username: {this.state.user.username}</p>
+								<p>id: {this.state.user.id}</p>
+							</>
+						)
+				}
 			</>
-
 		);
 	};
 
@@ -48,11 +45,13 @@ class Home extends Component {
 
 		return new Promise((resolve, reject) => {
 
-			fetch("http://127.0.0.1:8080/posts/getall")
+			let { id } = this.props.match.params;
+
+			fetch(`http://127.0.0.1:8080/users/getonebyid/${id}`)
 				.then(res => res.json())
 				.then(res => resolve(res))
 				.catch(err => reject(err));
-			fetch("http://192.168.1.107:8080/posts/getall")
+			fetch(`http://192.168.1.107:8080/users/getonebyid/${id}`)
 				.then(res => res.json())
 				.then(res => resolve(res))
 				.catch(err => reject(err));
