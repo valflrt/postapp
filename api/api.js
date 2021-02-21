@@ -6,10 +6,11 @@ const database = require("mongoose");
 
 const config = require("./config.json");
 
-// database handlers
+// route handlers
 
 const posts = require("./routes/posts");
 const users = require("./routes/users");
+const storage = require("./routes/storage");
 
 // connect to the database
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 
 app.use("/posts", posts);
 app.use("/users", users);
+app.use("/storage", storage);
 
 // api routes
 

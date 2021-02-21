@@ -16,10 +16,16 @@
 	}
 }
 
+.image {
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
 .post > .image {
 	width: 100%;
 	height: auto;
-	border-radius: 20px 20px 0 0;
+	border-radius: 4px 4px 0 0;
 	cursor: pointer;
 }
 
@@ -53,7 +59,7 @@
 	width: 60%;
 	height: auto;
 	animation: pop 0.2s 1;
-	border-radius: 8px;
+	border-radius: 4px;
 }
 
 @media only screen and (max-width: 480px) {

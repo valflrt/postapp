@@ -1,6 +1,7 @@
 import { Component } from "react";
 
 import Loader from "../fragments/Loader";
+import Button from "../fragments/Button";
 
 class Home extends Component {
 	constructor(props) {
@@ -32,6 +33,7 @@ class Home extends Component {
 						(this.state.loadState.error === false ? <Loader /> : <Loader error />)
 						: (
 							<>
+								<Button value={"back"} action={() => { this.back() }} />
 								<p>username: {this.state.user.username}</p>
 								<p>id: {this.state.user.id}</p>
 							</>
@@ -63,6 +65,10 @@ class Home extends Component {
 	reload() {
 		this.setState({ loadState: { loaded: false, error: false } });
 		this.load();
+	};
+
+	back() {
+		this.props.history.goBack();
 	};
 
 };

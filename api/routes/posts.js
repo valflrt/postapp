@@ -27,12 +27,11 @@ router.get("/getonebyid/:id", async (req, res) => {
 
 router.get("/createone", async (req, res) => {
 	try {
-		let { description, authorId, imageId } = req.query;
+		let { text, authorId, image } = req.query;
 
 		let authorFromDB = await User.findById(authorId);
-		//let imageFromDB = await Image.findByID(imageId);
 
-		let post = await new Post({ description: description, author: authorFromDB/*, image: imageFromDB*/ }).save();
+		let post = await new Post({ text: text, author: authorFromDB, image: image }).save();
 		authorFromDB.posts.push(post._id);
 		await authorFromDB.save();
 		res.status(200).json({ message: "added successfully", post });
@@ -47,11 +46,11 @@ router.get("/createone", async (req, res) => {
 router.get("/updateonebyid/:id", async (req, res) => {
 	try {
 
-		let { description } = req.query;
+		let { text } = req.query;
 
 		let post = await Post.findById(req.params.id);
 
-		if (description) post.description = description;
+		if (text) post.text = text;
 
 		await post.save();
 		res.status(200).json({ message: "updated successfully", post });

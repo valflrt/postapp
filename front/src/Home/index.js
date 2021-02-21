@@ -2,8 +2,6 @@ import { Component } from "react";
 
 import Post from "../fragments/Post"
 import Loader from "../fragments/Loader";
-//import { Link } from "react-router-dom";
-//import Button from "./Button";
 
 class Home extends Component {
 	constructor(props) {

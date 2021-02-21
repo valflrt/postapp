@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 module.exports = mongoose.model("Post", new Schema({
-	description: {
+	text: {
 		type: String,
 		default: null,
 		required: true
@@ -20,9 +20,8 @@ module.exports = mongoose.model("Post", new Schema({
 		}
 	},
 	image: {
-		id: {
-			type: String
-		}
+		type: Boolean,
+		default: false
 	},
 	timeStamps: {
 		createdAt: {
