@@ -1,83 +1,22 @@
-:root {
-	--primary: #ee0077;
-
-	--accent-color-success: #5de900;
-	--accent-color-warning: #e77b00;
-	--accent-color-warning: #ee1c00;
-
-	--black-tint1: #080808;
-	--black-tint2: #1a1a1a;
-	--black-tint3: #353535;
-	--black-tint4: #505050;
-	--black-tint5: #707070;
-	--black-tint6: #a7a7a7;
-	--black-tint7: #c4c4c4;
-	--black-tint8: #eeeeee;
-
-	--white: #fdfdfd;
-	--black: #0f0f0f;
+.button {
+	align-self: flex-start;
 }
 
-@font-face {
-	src: url("../fonts/KaushanScript-Regular.ttf");
-	font-family: "KaushanScript";
-}
-
-* {
-	color: var(--black-tint6);
-	box-sizing: border-box;
-	font-size: 18px;
-	font-weight: 500;
-}
-
-#app {
-	width: 100%;
-	height: 100%;
+.profile {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 }
 
-.topbar {
-	width: 100%;
-	height: 60px;
-	padding: 4px 8px;
-	background: var(--black);
-	border-bottom: 1px solid var(--black-tint2);
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+.profile > .username {
+	font-size: 1.4rem;
 }
 
-#title {
-	cursor: pointer;
+.profile > .bio {
+	font-size: 0.9rem;
+	margin-left: 10px;
 }
 
-#title > p {
-	font-size: 1.4em;
-	font-family: "KaushanScript";
-	user-select: none;
-}
-
-.main {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	align-items: center;
-}
-
-@media only screen and (max-width: 480px) {
-	.main {
-		margin: 0 5%;
-	}
-}
-
-.non-formated-text {
-	text-decoration: none;
-}
-
-.non-formated-text > * {
-	text-decoration: none;
+.profile > p {
+	margin: 5px;
 }

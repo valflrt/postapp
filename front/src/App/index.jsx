@@ -26,7 +26,7 @@ const App = () => (
 				</span>
 			</div>
 
-			<div className="main">
+			<div id="main">
 				<Switch>
 					<Route path={"/"} exact component={Home} />
 

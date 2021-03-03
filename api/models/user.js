@@ -1,6 +1,36 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+let postSchema = new Schema({
+	text: {
+		type: String,
+		default: null,
+		required: true
+	},
+	author: {
+		_id: {
+			type: String,
+			default: "unknown",
+			required: true
+		},
+		username: {
+			type: String,
+			default: "unknown",
+			required: true
+		}
+	},
+	image: {
+		type: Boolean,
+		default: false
+	},
+	timeStamps: {
+		createdAt: {
+			type: Date,
+			default: Date.now()
+		}
+	}
+});
+
 let userSchema = new Schema({
 	username: {
 		type: String,
@@ -14,10 +44,7 @@ let userSchema = new Schema({
 		type: String,
 		default: null
 	},
-	posts: {
-		type: Array,
-		default: []
-	},
+	posts: [postSchema],
 	timeStamps: {
 		createdAt: {
 			type: Date,

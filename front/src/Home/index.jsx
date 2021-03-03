@@ -45,11 +45,12 @@ class Home extends Component {
 			fetch("http://127.0.0.1:8080/posts/getall")
 				.then(res => res.json())
 				.then(res => resolve(res))
-				.catch(err => reject(err));
-			fetch("http://192.168.1.107:8080/posts/getall")
-				.then(res => res.json())
-				.then(res => resolve(res))
-				.catch(err => reject(err));
+				.catch(err1 => {
+					fetch("http://192.168.1.107:8080/posts/getall")
+						.then(res => res.json())
+						.then(res => resolve(res))
+						.catch(err2 => reject(err2));
+				});
 
 		});
 

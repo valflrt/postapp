@@ -28,6 +28,7 @@
 	box-sizing: border-box;
 	font-size: 18px;
 	font-weight: 500;
+	-webkit-tap-highlight-color: transparent;
 }
 
 #app {
@@ -59,8 +60,9 @@
 	user-select: none;
 }
 
-.main {
+#main {
 	height: 100%;
+	margin: 10px 600px;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -68,9 +70,27 @@
 	align-items: center;
 }
 
+@media only screen and (max-width: 1800px) {
+	#main {
+		margin: 10px 400px;
+	}
+}
+
+@media only screen and (max-width: 1600px) {
+	#main {
+		margin: 5px 200px;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	#main {
+		margin: 2px 80px;
+	}
+}
+
 @media only screen and (max-width: 480px) {
-	.main {
-		margin: 0 5%;
+	#main {
+		margin: 0 20px;
 	}
 }
 
