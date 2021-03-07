@@ -3,11 +3,14 @@ const router = require('express').Router();
 // local modules
 
 const User = require("../models/user");
+const Post = require("../models/post").model;
+
 const encryption = require("../utils/encryption");
+const objectId = require("../utils/objectId");
 
 // show all users
 
-router.get("/getall", async (req, res) => {
+router.get("/all/get", async (req, res) => {
 	try {
 		User.find((err, users) => {
 			res.status(200).json(users.map(user => {
@@ -26,13 +29,14 @@ router.get("/getall", async (req, res) => {
 
 // show one user by id
 
-router.get("/getonebyid/:id", async (req, res) => {
+router.get("/one/:id/get", async (req, res) => {
 	try {
 		User.findById(req.params.id, (err, user) => {
 			res.status(200).json({
 				id: user._id,
 				username: user.username,
 				bio: user.bio,
+				posts: user.posts,
 				timeStamps: user.timeStamps
 			});
 		});
@@ -43,7 +47,7 @@ router.get("/getonebyid/:id", async (req, res) => {
 
 // add a new user to the database
 
-router.get("/createone", async (req, res) => {
+router.get("/one/create", async (req, res) => {
 	new User({
 		username: req.query.username,
 		password: encryption.hash(req.query.password),
@@ -58,7 +62,7 @@ router.get("/createone", async (req, res) => {
 
 // update an user
 
-router.get("/updateonebyid/:id", async (req, res) => {
+router.get("/one/:id/update", async (req, res) => {
 	try {
 
 		let { username, password, bio } = req.query;
@@ -78,11 +82,80 @@ router.get("/updateonebyid/:id", async (req, res) => {
 
 // delete an user
 
-router.get("/deleteonebyid/:id", async (req, res) => {
+router.get("/one/:id/delete", async (req, res) => {
 	try {
 		await User.findByIdAndDelete({ _id: req.params.id });
 		res.status(200).json({ message: "deleted successfully" });
 	} catch (err) {
+		res.status(500).json({ error: err });
+	};
+});
+
+router.get("/one/:id/posts/all/get", async (req, res) => {
+	try {
+		let { text, image } = req.query;
+
+		let author = await User.findById(req.params.id);
+
+		let posts = await author.posts;
+
+		res.status(200).json(posts);
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ error: err });
+	};
+});
+
+router.get("/one/:id/posts/one/:postId/get", async (req, res) => {
+	try {
+		let { text, image } = req.query;
+
+		let author = await User.findById(req.params.id);
+
+		let post = await author.posts.get(req.params.postId);
+
+		res.status(200).json(post);
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ error: err });
+	};
+});
+
+router.get("/one/:id/posts/one/create", async (req, res) => {
+	try {
+		let { text, image } = req.query;
+
+		let author = await User.findById(req.params.id);
+
+		let post = new Post({
+			text: text,
+			image: image,
+			authorId: author._id
+		});
+
+		await author.posts.set(post._id.toString(), post);
+
+		await author.save();
+		await post.save();
+
+		res.status(200).json({ message: "added successfully", post });
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ error: err });
+	};
+});
+
+router.get("/one/:id/posts/one/:postId/delete", async (req, res) => {
+	try {
+		let author = await User.findById(req.params.id);
+
+		await author.posts.delete(req.params.postId);
+
+		await author.save();
+
+		res.status(200).json({ message: "deleted successfully" });
+	} catch (err) {
+		console.log(err);
 		res.status(500).json({ error: err });
 	};
 });

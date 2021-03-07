@@ -1,11 +1,11 @@
-const Post = require("../models/post");
+//const Post = require("../models/post");
 const User = require("../models/user");
 
 const router = require('express').Router();
 
 // get all posts
 
-router.get("/getall", async (req, res) => {
+router.get("/all/get", async (req, res) => {
 	try {
 		res.status(200).json(await Post.find());
 	} catch (err) {
@@ -15,7 +15,7 @@ router.get("/getall", async (req, res) => {
 
 // get information about one post by id
 
-router.get("/getonebyid/:id", async (req, res) => {
+router.get("/one/:id/get", async (req, res) => {
 	try {
 		res.status(200).json(await Post.findById(req.params.id));
 	} catch (err) {
@@ -23,27 +23,9 @@ router.get("/getonebyid/:id", async (req, res) => {
 	};
 });
 
-// create a post
-
-router.get("/createone", async (req, res) => {
-	try {
-		let { text, authorId, image } = req.query;
-
-		let authorFromDB = await User.findById(authorId);
-
-		let post = await new Post({ text: text, author: authorFromDB, image: image }).save();
-		authorFromDB.posts.push(post._id);
-		await authorFromDB.save();
-		res.status(200).json({ message: "added successfully", post });
-	} catch (err) {
-		console.log(err);
-		res.status(500).json({ error: err });
-	};
-});
-
 // update a post
 
-router.get("/updateonebyid/:id", async (req, res) => {
+router.get("/one/:id/update", async (req, res) => {
 	try {
 
 		let { text } = req.query;
@@ -62,7 +44,7 @@ router.get("/updateonebyid/:id", async (req, res) => {
 
 // delete a post
 
-router.get("/deleteonebyid/:id", async (req, res) => {
+router.get("/one/:id/delete", async (req, res) => {
 	try {
 		await Post.findByIdAndDelete({ _id: req.params.id });
 		res.status(200).json({ message: "deleted successfully" });
