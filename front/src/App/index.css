@@ -94,10 +94,10 @@
 	}
 }
 
-.non-formated-text {
+.Link {
 	text-decoration: none;
 }
 
-.non-formated-text > * {
+.Link > * {
 	text-decoration: none;
 }

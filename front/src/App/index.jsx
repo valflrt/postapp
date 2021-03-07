@@ -11,16 +11,16 @@ const App = () => (
 		<div id="app">
 
 			<div className="topbar">
-				<Link to={"/"} className="non-formated-text">
+				<Link to={"/"} className="Link">
 					<div id="title">
 						<p>postApp</p>
 					</div>
 				</Link>
 				<span>
-					<Link to={"/create"} className="non-formated-text">
+					<Link to={"/create"} className="Link">
 						<Button value="new post" />
 					</Link>
-					<Link to={"/login"} className="non-formated-text">
+					<Link to={"/login"} className="Link">
 						<Button value="login" />
 					</Link>
 				</span>

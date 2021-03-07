@@ -32,8 +32,9 @@ router.get("/all/get", async (req, res) => {
 router.get("/one/:id/get", async (req, res) => {
 	try {
 		User.findById(req.params.id, (err, user) => {
+			if (user === undefined) res.status(400).json({ error: "user does not exist" });
 			res.status(200).json({
-				id: user._id,
+				id: user._id.toString(),
 				username: user.username,
 				bio: user.bio,
 				posts: user.posts,
@@ -133,7 +134,7 @@ router.get("/one/:id/posts/one/create", async (req, res) => {
 			authorId: author._id
 		});
 
-		await author.posts.set(post._id.toString(), post);
+		await author.posts.push(post);
 
 		await author.save();
 		await post.save();
@@ -149,7 +150,8 @@ router.get("/one/:id/posts/one/:postId/delete", async (req, res) => {
 	try {
 		let author = await User.findById(req.params.id);
 
-		await author.posts.delete(req.params.postId);
+		await author.posts.filter(post => post._id !== req.params.postId);
+		await Post.findByIdAndDelete(req.params.postId);
 
 		await author.save();
 

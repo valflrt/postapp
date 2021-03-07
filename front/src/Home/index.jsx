@@ -30,9 +30,7 @@ class Home extends Component {
 				{
 					this.state.loadState.loaded === false ?
 						(this.state.loadState.error === false ? <Loader /> : <Loader error />)
-						: this.state.posts?.map(post => (
-							<Post props={post} key={post._id} />
-						))
+						: this.state.posts?.map(post => <Post post={post} key={post._id} />)
 				}
 			</>
 		);
@@ -42,11 +40,11 @@ class Home extends Component {
 
 		return new Promise((resolve, reject) => {
 
-			fetch("http://127.0.0.1:8080/posts/getall")
+			fetch("http://127.0.0.1:8080/posts/all/get")
 				.then(res => res.json())
 				.then(res => resolve(res))
 				.catch(err1 => {
-					fetch("http://192.168.1.107:8080/posts/getall")
+					fetch("http://192.168.1.107:8080/posts/all/get")
 						.then(res => res.json())
 						.then(res => resolve(res))
 						.catch(err2 => reject(err2));

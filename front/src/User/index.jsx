@@ -6,12 +6,25 @@ import Loader from "../fragments/Loader";
 import Button from "../fragments/Button";
 import Post from "../fragments/Post";
 
+const map = (map, callback) => {
+	let array;
+
+	map.forEach((value, key) => {
+		array.push({
+			value: value,
+			key: key
+		});
+	});
+
+	return array;
+};
+
 class Home extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			posts: null,
-			user: {
+			user: null,
+			loadState: {
 				loaded: false,
 				error: false
 			}
@@ -20,9 +33,9 @@ class Home extends Component {
 
 	componentDidMount() {
 		this.getUser()
-			.then((res) => this.setState({ user: { loaded: true, data: res } }))
+			.then((res) => this.setState({ user: res, loadState: { loaded: true } }))
 			.catch((err) => {
-				this.setState({ user: { loaded: false, error: true, data: null } });
+				this.setState({ user: null, loadState: { loaded: false, error: true } });
 				console.log(err);
 			});
 	};
@@ -32,8 +45,8 @@ class Home extends Component {
 		return (
 			<>
 				{
-					this.state.user.loaded === false ?
-						(this.state.user.error === false ? <Loader /> : <Loader error />)
+					this.state.loadState.loaded === false ?
+						(this.state.loadState.error === false ? <Loader /> : <Loader error />)
 						: (
 							<>
 								<Button value={"back"} action={() => { this.back() }} className={"inpage-button"} />
@@ -44,8 +57,8 @@ class Home extends Component {
 								{
 									this.state.user.loaded === false ?
 										(this.state.user.error === false ? <Loader /> : <Loader error />)
-										: this.state.posts?.map(post => (
-											<Post props={post} key={post._id} />
+										: this.state.user.posts.map(post => (
+											<Post post={post} key={post._id} />
 										))
 								}
 							</>
@@ -62,33 +75,17 @@ class Home extends Component {
 			let { id } = this.props.match.params;
 
 			try {
-				fetch(`http://127.0.0.1:8080/users/getonebyid/${id}`)
+
+				fetch(`http://127.0.0.1:8080/users/one/${id}/get`)
 					.then(res => res.json())
-					.then(res => resolve(res));
-				fetch(`http://192.168.1.107:8080/users/getonebyid/${id}`)
-					.then(res => res.json())
-					.then(res => resolve(res));
-			} catch (err) {
-				reject(err);
-			};
+					.then(res => resolve(res))
+					.catch(err => {
+						fetch(`http://192.168.1.107:8080/users/one/${id}/get`)
+							.then(res => res.json())
+							.then(res => resolve(res))
+							.catch(err2 => reject(err, err2));
+					});
 
-		});
-
-	};
-
-	getPosts() {
-
-		return new Promise((resolve, reject) => {
-
-			try {
-				this.user.posts?.forEach(post => {
-					fetch(`http://127.0.0.1:8080/posts/getonebyid/${post}`)
-						.then(res => res.json())
-						.then(res => resolve(res));
-					fetch(`http://192.168.1.107:8080/posts/getonebyid/${post}`)
-						.then(res => res.json())
-						.then(res => resolve(res));
-				});
 			} catch (err) {
 				reject(err);
 			};
