@@ -16,10 +16,6 @@ let userSchema = new Schema({
 		type: String,
 		default: null
 	},
-	posts: {
-		type: Array,
-		default: new Array()
-	},
 	timeStamps: {
 		createdAt: {
 			type: Date,

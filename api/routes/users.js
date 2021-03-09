@@ -6,7 +6,6 @@ const User = require("../models/user");
 const Post = require("../models/post").model;
 
 const encryption = require("../utils/encryption");
-const objectId = require("../utils/objectId");
 
 // show all users
 
@@ -27,20 +26,53 @@ router.get("/all/get", async (req, res) => {
 	};
 });
 
-// show one user by id
+// get one user with multiple methods
 
-router.get("/one/:id/get", async (req, res) => {
+router.get("/one/get/:id", async (req, res) => {
+
 	try {
-		User.findById(req.params.id, (err, user) => {
-			if (user === undefined) res.status(400).json({ error: "user does not exist" });
-			res.status(200).json({
-				id: user._id.toString(),
-				username: user.username,
-				bio: user.bio,
-				posts: user.posts,
-				timeStamps: user.timeStamps
-			});
+		res.status(200).json(await Post.findOne({ _id: req.params.data }));
+	} catch (err) {
+		res.status(500).json({ error: err });
+	};
+
+});
+
+// get several users with multiples methods
+
+router.get("/complex/get/:type/:data", async (req, res) => {
+	try {
+
+		let user = null;
+
+		switch (req.params.type) {
+
+			case "id":
+				user = await Post.find({ _id: req.params.data });
+				break;
+
+			case "username":
+				user = await Post.find({ username: new RegExp(req.params.data, "g") });
+				break;
+
+			case "bio":
+				user = await Post.find({ bio: new RegExp(req.params.data, "g") });
+				break;
+
+			default:
+				res.status(400).json({ message: "unknown type" });
+				break;
+
+		};
+
+		res.status(200).json({
+			id: user._id.toString(),
+			username: user.username,
+			bio: user.bio,
+			posts: user.posts,
+			timeStamps: user.timeStamps
 		});
+
 	} catch (err) {
 		res.status(500).json({ error: err });
 	};
@@ -63,7 +95,7 @@ router.get("/one/create", async (req, res) => {
 
 // update an user
 
-router.get("/one/:id/update", async (req, res) => {
+router.get("/one/update/:id", async (req, res) => {
 	try {
 
 		let { username, password, bio } = req.query;
@@ -83,7 +115,7 @@ router.get("/one/:id/update", async (req, res) => {
 
 // delete an user
 
-router.get("/one/:id/delete", async (req, res) => {
+router.get("/one/delete/:id", async (req, res) => {
 	try {
 		await User.findByIdAndDelete({ _id: req.params.id });
 		res.status(200).json({ message: "deleted successfully" });
@@ -92,6 +124,7 @@ router.get("/one/:id/delete", async (req, res) => {
 	};
 });
 
+/*
 router.get("/one/:id/posts/all/get", async (req, res) => {
 	try {
 		let { text, image } = req.query;
@@ -161,5 +194,6 @@ router.get("/one/:id/posts/one/:postId/delete", async (req, res) => {
 		res.status(500).json({ error: err });
 	};
 });
+*/
 
 module.exports = router;
