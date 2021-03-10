@@ -1,0 +1,55 @@
+/* color palette */
+
+:root {
+	--primary: #ee0077;
+	--secondary: #1c5de7;
+
+	--success: #5de900;
+	--warning: #e77b00;
+	--error: #ee1c00;
+
+	--success-soft: #b3eb8e;
+	--warning-soft: #e7bf90;
+	--error-soft: #e7a79f;
+
+	--darkest-bg: #0e0e0e;
+	--darker-bg: #161616;
+	--dark-bg: #1f1f1f;
+
+	--white: #fdfdfd;
+	--black: #0f0f0f;
+
+	--text: #c8c8c8;
+
+	--font-size-big: 36px;
+	--font-size-main: 20px;
+	--font-size-small: 16px;
+}
+
+/* flex justify */
+
+.self-justify-left {
+	justify-self: left;
+}
+
+.self-justify-right {
+	justify-self: right;
+}
+
+.self-justify-center {
+	justify-self: center;
+}
+
+/* flex align */
+
+.self-align-start {
+	align-self: flex-start;
+}
+
+.self-align-end {
+	align-self: flex-end;
+}
+
+.self-align-center {
+	align-self: center;
+}

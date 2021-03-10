@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import "./index.css";
+import "./topbar.css";
+import "./bottombar.css";
+import "./main.css";
 
 import Home from "../Home";
 import User from "../User";
@@ -12,18 +15,10 @@ const App = () => (
 
 			<div className="topbar">
 				<Link to={"/"} className="Link">
-					<div id="title">
+					<div className="title">
 						<p>postApp</p>
 					</div>
 				</Link>
-				<span>
-					<Link to={"/create"} className="Link">
-						<Button value="new post" />
-					</Link>
-					<Link to={"/login"} className="Link">
-						<Button value="login" />
-					</Link>
-				</span>
 			</div>
 
 			<div id="main">
@@ -38,7 +33,23 @@ const App = () => (
 
 					<Route render={() => <p>404: page not found</p>} />
 				</Switch>
-			</div >
+			</div>
+
+			<div className="bottombar">
+				<span className={"container"}>
+					<Link to={"/"} className={"Link"}>H</Link>
+					<Link to={"/"} className={"Link"}>H</Link>
+					<Link to={"/"} className={"Link"}>H</Link>
+				</span>
+				{/* 				<span>
+					<Link to={"/create"} className="Link">
+						<Button value="new post" />
+					</Link>
+					<Link to={"/login"} className="Link">
+						<Button value="login" />
+					</Link>
+				</span> */}
+			</div>
 
 		</div>
 	</Router>

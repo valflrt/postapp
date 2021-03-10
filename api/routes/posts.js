@@ -31,8 +31,19 @@ router.get("/complex/get/:type/:data", async (req, res) => {
 
 		switch (req.params.type) {
 
-			case "authorId":
+			case "id":
 				res.status(200).json(await Post.find({ authorId: req.params.data }));
+				break;
+
+			case "username":
+
+				let user = await User.findOne({ username: new RegExp(req.params.data, "g") });
+
+				if (user === null) return res.status(200).json(null);
+
+				res.status(200).json(await Post.find({
+					authorId: user._id
+				}));
 				break;
 
 			case "text":

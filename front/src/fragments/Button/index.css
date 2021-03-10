@@ -5,7 +5,7 @@
 	margin: 4px;
 	display: inline-flex;
 	border-radius: 4px;
-	background: var(--black-tint2);
+	background: var(--dark-bg);
 	cursor: pointer;
 	user-select: none;
 }

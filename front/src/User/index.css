@@ -1,22 +1,29 @@
-.button {
-	align-self: flex-start;
-}
-
 .profile {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	margin: 10px;
 }
 
 .profile > .username {
-	font-size: 1.4rem;
+	font-size: var(--font-size-main);
 }
 
 .profile > .bio {
-	font-size: 0.9rem;
+	font-size: var(--font-size-small);
 	margin-left: 10px;
+}
+
+.profile > .text-bottom {
+	font-size: var(--font-size-main);
+	margin-top: 20px;
 }
 
 .profile > p {
 	margin: 5px;
+}
+
+p.info {
+	font-size: var(--font-size-small);
 }

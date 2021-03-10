@@ -31,7 +31,7 @@ router.get("/all/get", async (req, res) => {
 router.get("/one/get/:id", async (req, res) => {
 
 	try {
-		res.status(200).json(await Post.findOne({ _id: req.params.data }));
+		res.status(200).json(await User.findById(req.params.id));
 	} catch (err) {
 		res.status(500).json({ error: err });
 	};
@@ -47,16 +47,12 @@ router.get("/complex/get/:type/:data", async (req, res) => {
 
 		switch (req.params.type) {
 
-			case "id":
-				user = await Post.find({ _id: req.params.data });
-				break;
-
 			case "username":
-				user = await Post.find({ username: new RegExp(req.params.data, "g") });
+				res.status(200).json(await User.find({ username: new RegExp(req.params.data, "g") }));
 				break;
 
 			case "bio":
-				user = await Post.find({ bio: new RegExp(req.params.data, "g") });
+				res.status(200).json(await User.find({ bio: new RegExp(req.params.data, "g") }));
 				break;
 
 			default:
@@ -64,14 +60,6 @@ router.get("/complex/get/:type/:data", async (req, res) => {
 				break;
 
 		};
-
-		res.status(200).json({
-			id: user._id.toString(),
-			username: user.username,
-			bio: user.bio,
-			posts: user.posts,
-			timeStamps: user.timeStamps
-		});
 
 	} catch (err) {
 		res.status(500).json({ error: err });

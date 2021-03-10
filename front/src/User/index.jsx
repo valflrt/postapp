@@ -6,25 +6,17 @@ import Loader from "../fragments/Loader";
 import Button from "../fragments/Button";
 import Post from "../fragments/Post";
 
-const map = (map, callback) => {
-	let array;
-
-	map.forEach((value, key) => {
-		array.push({
-			value: value,
-			key: key
-		});
-	});
-
-	return array;
-};
-
 class Home extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user: null,
-			loadState: {
+			user: {
+				data: null,
+				loaded: false,
+				error: false
+			},
+			posts: {
+				data: null,
 				loaded: false,
 				error: false
 			}
@@ -33,9 +25,16 @@ class Home extends Component {
 
 	componentDidMount() {
 		this.getUser()
-			.then((res) => this.setState({ user: res, loadState: { loaded: true } }))
+			.then((res) => this.setState({ user: { data: res, loaded: true } }))
 			.catch((err) => {
-				this.setState({ user: null, loadState: { loaded: false, error: true } });
+				this.setState({ user: { data: null, loaded: false, error: true } });
+				console.log(err);
+			});
+
+		this.getPosts()
+			.then((res) => this.setState({ posts: { data: res, loaded: true } }))
+			.catch((err) => {
+				this.setState({ posts: { data: null, loaded: false, error: true } });
 				console.log(err);
 			});
 	};
@@ -45,21 +44,23 @@ class Home extends Component {
 		return (
 			<>
 				{
-					this.state.loadState.loaded === false ?
-						(this.state.loadState.error === false ? <Loader /> : <Loader error />)
+					this.state.user.loaded === false ?
+						(this.state.user.error === false ? <Loader /> : <Loader error />)
 						: (
 							<>
-								<Button value={"back"} action={() => { this.back() }} className={"inpage-button"} />
+								<Button value={"back"} action={() => { this.back() }} className={"self-align-end"} />
 								<div className={"profile"}>
-									<p className={"username"}>@{this.state.user.username}</p>
-									{this.state.user.bio && <p className={"bio"}>{this.state.user.bio}</p>}
+									<p className={"username"}>@{this.state.user.data.username}</p>
+									{this.state.user.data.bio && <p className={"bio"}>{this.state.user.data.bio}</p>}
+									<p className={"text-bottom"}>Posts:</p>
 								</div>
-								{
-									this.state.user.loaded === false ?
-										(this.state.user.error === false ? <Loader /> : <Loader error />)
-										: this.state.user.posts.map(post => (
-											<Post post={post} key={post._id} />
-										))
+								{this.state.posts.loaded === false ?
+									(this.state.posts.error === false ? <Loader /> : <Loader error />)
+									: (this.state.posts.data.length !== 0) ?
+										(this.state.posts.data.map(post => (
+											<Post post={post} key={post._id} author={false} />
+										))) :
+										<p className={"info self-align-center self-justify-center"}>How empty O-O</p>
 								}
 							</>
 						)
@@ -76,11 +77,37 @@ class Home extends Component {
 
 			try {
 
-				fetch(`http://127.0.0.1:8080/users/one/${id}/get`)
+				fetch(`http://127.0.0.1:8080/users/one/get/${id}`)
 					.then(res => res.json())
 					.then(res => resolve(res))
 					.catch(err => {
-						fetch(`http://192.168.1.107:8080/users/one/${id}/get`)
+						fetch(`http://192.168.1.107:8080/users/one/get/${id}`)
+							.then(res => res.json())
+							.then(res => resolve(res))
+							.catch(err2 => reject(err, err2));
+					});
+
+			} catch (err) {
+				reject(err);
+			};
+
+		});
+
+	};
+
+	getPosts() {
+
+		return new Promise((resolve, reject) => {
+
+			let { id } = this.props.match.params;
+
+			try {
+
+				fetch(`http://127.0.0.1:8080/posts/complex/get/id/${id}`)
+					.then(res => res.json())
+					.then(res => resolve(res))
+					.catch(err => {
+						fetch(`http://192.168.1.107:8080/users/complex/get/id/${id}`)
 							.then(res => res.json())
 							.then(res => resolve(res))
 							.catch(err2 => reject(err, err2));

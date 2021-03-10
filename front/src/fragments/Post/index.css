@@ -1,12 +1,10 @@
 .post {
 	margin: 6px auto;
+	background: var(--darker-bg);
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	border-width: 1px;
-	border-color: var(--black-tint2);
-	border-style: solid;
 	border-radius: 4px;
 }
 
