@@ -26,13 +26,9 @@
 }
 
 .post > .wrapper > .action-bar {
-	font-size: 0.8em;
+	font-size: var(--font-size-main-small);
 	text-align: end;
 	padding: 8px 16px;
-}
-
-.post > .wrapper > .action-bar > b {
-	font-size: 1.2em;
 }
 
 .imageContainer {

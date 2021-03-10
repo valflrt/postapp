@@ -11,19 +11,11 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-.link {
-	text-decoration: none;
-}
-
-.link > * {
-	text-decoration: none;
-}
-
-.link:active {
+a.link {
 	text-decoration: underline;
 }
 
-.link:active > * {
+a.link > * {
 	text-decoration: underline;
 }
 

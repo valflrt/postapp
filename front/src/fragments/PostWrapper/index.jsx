@@ -11,7 +11,7 @@ function PostWrapper({ posts, author }) {
 					(posts.map(post => (
 						<Post post={post} key={post._id} author={author} />
 					))) :
-					<p className={"title self-align-center self-justify-center"}>How empty O-O</p>
+					<p className={"self-align-center self-justify-center"}>How empty O-O</p>
 			}
 		</div>
 	);

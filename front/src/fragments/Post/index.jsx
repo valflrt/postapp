@@ -52,13 +52,13 @@ class Post extends Component {
 									<div className="main-text">
 										{post.text}
 									</div>
-									{(this.props.author !== false) && (
-										<div className="action-bar">
+									<div className="action-bar">
+										{(this.props.author !== false) ? (
 											<Link to={`/user/${post.authorId}`} className="link">
 												@{this.state.user.username}
 											</Link>
-										</div>
-									)}
+										) : (<>@{this.state.user.username}</>)}
+									</div>
 								</div>
 								{(this.state.galleryMode === true) && (
 									<div className="imageContainer" onClick={() => this.setState({ galleryMode: false })}>
