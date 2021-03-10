@@ -7,15 +7,15 @@
 }
 
 .profile > .username {
-	font-size: var(--font-size-main);
+	font-size: var(--font-size-big);
 }
 
 .profile > .bio {
-	font-size: var(--font-size-small);
+	font-size: var(--font-size-main-small);
 }
 
 .profile > .text-bottom {
-	font-size: var(--font-size-main);
+	font-size: var(--font-size-main-big);
 	margin-top: 20px;
 }
 

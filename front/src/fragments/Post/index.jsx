@@ -3,7 +3,6 @@ import { Component } from "react";
 
 import { Link } from "react-router-dom";
 import Image from "../Image";
-import Loader from "../Loader";
 
 class Post extends Component {
 	constructor(props) {
@@ -28,47 +27,34 @@ class Post extends Component {
 		let post = this.props.post;
 
 		return (
-			<>
+			<div id={"main"}>
 				{
-					this.state.loadState.loaded === false ?
-						(this.state.loadState.error === false ? (
-							<div className="post loading">
-								<div className="wrapper">
-									<Loader />
+					this.state.loadState.loaded === true && (
+						<div className="post">
+							{post.image === true ? (
+								<Image action={() => this.setState({ galleryMode: true })} src={`http://${window.location.hostname}:8080/storage/${post._id}.png`} alt={post._id} />
+							) : null}
+							<div className="wrapper">
+								<div className="main-text">
+									{post.text}
+								</div>
+								<div className="action-bar">
+									{(this.props.author !== false) ? (
+										<Link to={`/user/${post.authorId}`} className="link">
+											@{this.state.user.username}
+										</Link>
+									) : (<>@{this.state.user.username}</>)}
 								</div>
 							</div>
-						) : (
-							<div className="post">
-								<div className="wrapper">
-									<Loader error />
+							{(this.state.galleryMode === true) && (
+								<div className="imageContainer" onClick={() => this.setState({ galleryMode: false })}>
+									<Image src={`http://${window.location.hostname}:8080/storage/${post._id}.png`} alt={post._id} />
 								</div>
-							</div>
-						)) : (
-							<div className="post">
-								{post.image === true ? (
-									<Image action={() => this.setState({ galleryMode: true })} src={`http://127.0.0.1:8080/storage/${post._id}.png`} alt={post._id} />
-								) : null}
-								<div className="wrapper">
-									<div className="main-text">
-										{post.text}
-									</div>
-									<div className="action-bar">
-										{(this.props.author !== false) ? (
-											<Link to={`/user/${post.authorId}`} className="link">
-												@{this.state.user.username}
-											</Link>
-										) : (<>@{this.state.user.username}</>)}
-									</div>
-								</div>
-								{(this.state.galleryMode === true) && (
-									<div className="imageContainer" onClick={() => this.setState({ galleryMode: false })}>
-										<Image src={`http://127.0.0.1:8080/storage/${post._id}.png`} alt={post._id} />
-									</div>
-								)}
-							</div>
-						)
+							)}
+						</div>
+					)
 				}
-			</>
+			</div>
 		);
 	};
 
@@ -76,14 +62,11 @@ class Post extends Component {
 
 		return new Promise((resolve, reject) => {
 
-			fetch(`http://127.0.0.1:8080/users/one/get/${this.props.post.authorId}`)
+			fetch(`http://${window.location.hostname}:8080/users/one/get/${this.props.post.authorId}`)
 				.then(res => res.json())
 				.then(res => resolve(res))
-				.catch(err1 => {
-					fetch(`http://192.168.1.107:8080/users/one/get/${this.props.post.authorId}`)
-						.then(res => res.json())
-						.then(res => resolve(res))
-						.catch(err2 => reject(err2));
+				.catch(err => {
+					reject(err);
 				});
 
 		});

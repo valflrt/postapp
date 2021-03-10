@@ -16,10 +16,14 @@
 	--darker-bg: #161616;
 	--dark-bg: #1f1f1f;
 
+	--lightest-bg: #fcfcfc;
+	--lighter-bg: #dadada;
+	--light-bg: #b9b9b9;
+
 	--white: #fdfdfd;
 	--black: #0f0f0f;
 
-	--text: #c8c8c8;
+	--text-color: #c8c8c8;
 
 	--font-size-big: 28px;
 	--font-size-main-big: 18px;

@@ -4,18 +4,19 @@
 }
 
 * {
-	color: var(--text);
+	color: var(--text-color);
 	box-sizing: border-box;
 	font-size: var(--font-size-main);
 	font-weight: 500;
 	-webkit-tap-highlight-color: transparent;
 }
 
-a.link {
+.link {
 	text-decoration: underline;
+	cursor: pointer;
 }
 
-a.link > * {
+.link > * {
 	text-decoration: underline;
 }
 
@@ -24,6 +25,15 @@ p {
 }
 
 p.title {
-	font-size: var(--font-size-main);
+	font-size: var(--font-size-main-big);
 	padding: 10px 0;
+}
+
+#main {
+	animation: pageChange 0.6s;
+}
+
+@keyframes pageChange {
+	0% { transform: translateY(20px); opacity: 0 };
+	100% { transform: translateY(0); opacity: 1 }
 }

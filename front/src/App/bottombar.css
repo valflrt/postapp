@@ -11,9 +11,15 @@
 	justify-content: center;
 }
 
+.bottombar > .container > a, svg {
+	height: 24px;
+	width: 24px;
+}
+
 .bottombar > .container {
 	width: 100%;
 	max-width: 350px;
+	flex: 0 0 auto;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -21,27 +27,16 @@
 	align-content: center;
 }
 
+.bottombar > .container > .menu-button > svg {
+	color: rgb(70, 70, 70);
+}
+
 .bottombar > .container > a {
 	height: 24px;
 	width: 24px;
 }
 
-.bottombar > .container > a > svg {
-	height: 24px;
-	width: 24px;
-}
-
-.bottombar > .container > a.focus > svg > * {
+.bottombar > .container > a.active > svg > * {
 	transition: 0.4s;
 	color: var(--primary);
-}
-
-.bottombar > .title {
-	justify-self: left;
-}
-
-.bottombar > .title > p {
-	font-size: 1.2rem;
-	font-family: "KaushanScript";
-	user-select: none;
 }

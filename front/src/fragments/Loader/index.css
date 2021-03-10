@@ -12,7 +12,7 @@
 	height: 20px;
 	width: 20px;
 	border-radius: 50%;
-	border: 2px var(--tint3) solid;
+	border: 2px var(--text-color) solid;
 	border-top-color: transparent;
 	animation: loading .8s infinite;
 }
