@@ -54,7 +54,7 @@ class Post extends Component {
 									</div>
 									{(this.props.author !== false) && (
 										<div className="action-bar">
-											<Link to={`/user/${post.authorId}`} className="Link">
+											<Link to={`/user/${post.authorId}`} className="link">
 												@{this.state.user.username}
 											</Link>
 										</div>

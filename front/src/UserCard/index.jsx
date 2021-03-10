@@ -3,10 +3,9 @@ import { Component } from "react";
 import "./index.css";
 
 import Loader from "../fragments/Loader";
-import Button from "../fragments/Button";
-import Post from "../fragments/Post";
+import PostWrapper from "../fragments/PostWrapper";
 
-class Home extends Component {
+class UserCard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -48,19 +47,15 @@ class Home extends Component {
 						(this.state.user.error === false ? <Loader /> : <Loader error />)
 						: (
 							<>
-								<Button value={"back"} action={() => { this.back() }} className={"self-align-end"} />
 								<div className={"profile"}>
 									<p className={"username"}>@{this.state.user.data.username}</p>
 									{this.state.user.data.bio && <p className={"bio"}>{this.state.user.data.bio}</p>}
 									<p className={"text-bottom"}>Posts:</p>
 								</div>
-								{this.state.posts.loaded === false ?
-									(this.state.posts.error === false ? <Loader /> : <Loader error />)
-									: (this.state.posts.data.length !== 0) ?
-										(this.state.posts.data.map(post => (
-											<Post post={post} key={post._id} author={false} />
-										))) :
-										<p className={"info self-align-center self-justify-center"}>How empty O-O</p>
+								{
+									this.state.posts.loaded === false ?
+										(this.state.posts.error === false ? <Loader /> : <Loader error />)
+										: <PostWrapper posts={this.state.posts.data} author={false} />
 								}
 							</>
 						)
@@ -126,10 +121,10 @@ class Home extends Component {
 		this.load();
 	};
 
-	back() {
-		this.props.history.goBack();
-	};
+	/*	back() {
+			this.props.history.goBack();
+		};*/
 
 };
 
-export default Home;
+export default UserCard;

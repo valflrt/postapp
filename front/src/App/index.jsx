@@ -1,34 +1,35 @@
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link, useLocation } from "react-router-dom";
 
 import "./index.css";
-import "./topbar.css";
 import "./bottombar.css";
-import "./main.css";
+import "./app.css";
+
+import { FiHome, FiBell, FiUser } from "react-icons/fi"
 
 import Home from "../Home";
-import User from "../User";
-import Button from "../fragments/Button";
+import UserCard from "../UserCard";
 
-const App = () => (
-	<Router>
+function App() {
+
+	const location = useLocation();
+
+	const focusLink = (pathname) => (location.pathname === pathname && " focus");
+
+	localStorage.setItem("userId", "603fcfdaca7fa518fc24947b");
+
+	return (
 		<div id="app">
-
-			<div className="topbar">
-				<Link to={"/"} className="Link">
-					<div className="title">
-						<p>postApp</p>
-					</div>
-				</Link>
-			</div>
 
 			<div id="main">
 				<Switch>
 					<Route path={"/"} exact component={Home} />
 
 					<Route path={"/post/:id"} render={() => <div>post</div>} />
-					<Route path={"/user/:id"} component={User} />
+					<Route path={"/user/:id"} component={UserCard} />
+					<Route path={"/notifications"} render={() => <div>Here are your notifications</div>} />
 
 					<Route path={"/create"} render={() => <div>hey</div>} />
+
 					<Route path={"/login"} render={() => <div>login</div>} />
 
 					<Route render={() => <p>404: page not found</p>} />
@@ -36,23 +37,24 @@ const App = () => (
 			</div>
 
 			<div className="bottombar">
+				{/*<div className="title">
+					<p>postApp</p>
+				</div>*/}
 				<span className={"container"}>
-					<Link to={"/"} className={"Link"}>H</Link>
-					<Link to={"/"} className={"Link"}>H</Link>
-					<Link to={"/"} className={"Link"}>H</Link>
+					<Link to={`/user/${localStorage.getItem("userId")}`} className={"link" + focusLink(`/user/${localStorage.getItem("userId")}`)}>
+						<FiUser />
+					</Link>
+					<Link to={"/"} className={"link" + focusLink("/")}>
+						<FiHome />
+					</Link>
+					<Link to={"/notifications"} className={"link" + focusLink("/notifications")}>
+						<FiBell />
+					</Link>
 				</span>
-				{/* 				<span>
-					<Link to={"/create"} className="Link">
-						<Button value="new post" />
-					</Link>
-					<Link to={"/login"} className="Link">
-						<Button value="login" />
-					</Link>
-				</span> */}
 			</div>
 
-		</div>
-	</Router>
-);
+		</div >
+	);
+};
 
 export default App;
