@@ -26,3 +26,12 @@
 .link:active > * {
 	text-decoration: underline;
 }
+
+p {
+	margin: 0;
+}
+
+p.title {
+	font-size: var(--font-size-main);
+	padding: 10px 0;
+}

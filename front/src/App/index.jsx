@@ -26,7 +26,7 @@ function App() {
 
 					<Route path={"/post/:id"} render={() => <div>post</div>} />
 					<Route path={"/user/:id"} component={UserCard} />
-					<Route path={"/notifications"} render={() => <div>Here are your notifications</div>} />
+					<Route path={"/notifications"} render={() => <p className={"title"}>Here are your notifications</p>} />
 
 					<Route path={"/create"} render={() => <div>hey</div>} />
 

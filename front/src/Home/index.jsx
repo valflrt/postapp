@@ -27,6 +27,7 @@ class Home extends Component {
 	render() {
 		return (
 			<>
+				<p className={"title"}>Recent Posts</p>
 				{
 					this.state.loadState.loaded === false ?
 						(this.state.loadState.error === false ? <Loader /> : <Loader error />)

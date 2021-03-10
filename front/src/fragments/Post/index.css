@@ -21,7 +21,7 @@
 }
 
 .post > .wrapper > .main-text {
-	font-size: 1em;
+	font-size: var(--font-size-main);
 	padding: 8px 16px;
 }
 

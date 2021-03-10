@@ -22,7 +22,3 @@
 .profile > p {
 	margin: 5px;
 }
-
-p.info {
-	font-size: var(--font-size-small);
-}

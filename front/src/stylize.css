@@ -21,9 +21,10 @@
 
 	--text: #c8c8c8;
 
-	--font-size-big: 36px;
-	--font-size-main: 20px;
-	--font-size-small: 16px;
+	--font-size-big: 28px;
+	--font-size-main-big: 18px;
+	--font-size-main-small: 16px;
+	--font-size-small: 12px;
 }
 
 /* flex justify */
